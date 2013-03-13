@@ -3,33 +3,36 @@
     margin: 20px auto;
     width: 600px;
     padding: 0px 20px 20px 20px;
-    border: 1px dotted black;
   }
   th {
     text-align: left;
   }
 </style>
 
-<div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
+<h1>Jay & Shivam's Bitly</h1>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
+<% if @url && @url.errors.any? %>
+<ul class= "errors">
+  <% @url.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+</ul>
+<% end %>
+
+
+<div class="container">
+  <form action="/urls" method="POST">
+    <fieldset>
+      <legend>Url</legend>
+      <label for ="long_url">Insert Url</label>
+      <input type="text" name="long_url" /><br/>
+      <input type="submit" value="Create short url" />
+    </fieldset>
 </div>
+
+<ul>
+<% @urls.each do |url| %>
+  <li><%= url.long_url %> = /<%= url.short_url %> <br/> 
+    clicks = <%= url.clicks %>
+<% end %>
+</ul>
