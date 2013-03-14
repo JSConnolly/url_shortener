@@ -7,15 +7,18 @@
     See: http://necolas.github.com/normalize.css/
   -->
   <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/main.css">
 
   <title></title>
 </head>
 <body>
+  <h1>J & Shivam's Bitly</h1>
   <nav>
   <ul>
+    <li><a href="/">Home</a></li>
     <% if current_user %>
-        <%= erb :"_signout_form" %>
         <li><a href="/users/<%= @current_user.id%>">My Profile</a></li>
+        <%= erb :"_signout_form" %>
     <% else %>
     <li><a href="/users/new">Sign Up</a></li>
     <li><a href="/users/login">Login</a></li>

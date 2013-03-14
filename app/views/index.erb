@@ -13,8 +13,6 @@
   <h2><span class= "welcome"><%= "Hello #{@current_user.email}, welcome to your urls"%></span></h2>
 <% end %>
 
-<h1>J & Shivam's Bitly</h1>
-
 
 <% if @url && @url.errors.any? %>
 <ul class= "errors">
@@ -39,15 +37,16 @@
 <ul>
 
 <% @urls.each do |url| %>
-  <li><%= url.long_url %> = /<%= url.short_url %> <br/> 
+  <li><%= url.long_url %> = <a href="/<%= url.short_url%>" target="_blank">/<%= url.short_url %></a> <br/> 
     clicks = <%= url.clicks %>
 <% end %>
 </ul>
 <% if @current_user%>
   <h2>Your Top URLs</h2>
   <% @current_user.urls.each do |url| %>
-  <li><%= url.long_url %> = /<%= url.short_url %> <br/> 
+  <li><%= url.long_url %> = <a href="<%= url.short_url%>" target="_blank">/<%= url.short_url %></a><br/> 
     clicks = <%= url.clicks %>
 <% end %>
 <% end %>
+
 

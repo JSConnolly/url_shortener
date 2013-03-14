@@ -30,7 +30,7 @@ end
 
 # e.g., /q6bda
 get '/:short_url' do
-  pass if params[:short_url] =~ /favico/
+  # pass if params[:short_url] =~ /favico/
   # pass if 
   puts "------------------> whee2 -- #{params[:short_url]}"
 
