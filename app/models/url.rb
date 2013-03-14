@@ -1,4 +1,6 @@
 class Url < ActiveRecord::Base
+  belongs_to :user
+  
   before_create :create_short_url
   VALID_URL_REGEX = /(http:)?(www\.)?.*\.\w{2,5}($|\/.*)/
   validates :long_url, format: { with: VALID_URL_REGEX }

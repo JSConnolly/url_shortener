@@ -9,7 +9,13 @@
   }
 </style>
 
-<h1>Jay & Shivam's Bitly</h1>
+<h1>J & Shivam's Bitly</h1>
+<nav>
+  <ul>
+    <li><a href="/users/new">Sign Up</a></li>
+    <li><a href="/users/login">Login</a></li>
+  </ul>
+</nav>
 
 <% if @url && @url.errors.any? %>
 <ul class= "errors">
@@ -29,6 +35,7 @@
       <input type="submit" value="Create short url" />
     </fieldset>
 </div>
+
 
 <ul>
 <% @urls.each do |url| %>
