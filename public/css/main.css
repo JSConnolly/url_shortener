@@ -1,0 +1,11 @@
+/*body {
+  background-color:  #CCC;
+}*/
+
+.hero-unit, .center-text {
+   text-align:center;
+}
+#logout-btn {
+  margin-top: 13%;
+  margin-left: 15%;
+}
