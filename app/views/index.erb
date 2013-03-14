@@ -1,52 +1,68 @@
-<style type="text/css">
-  .container {
-    margin: 20px auto;
-    width: 600px;
-    padding: 0px 20px 20px 20px;
-  }
-  th {
-    text-align: left;
-  }
-</style>
 
+<div id="main">
 <% if current_user %>
-  <h2><span class= "welcome"><%= "Hello #{@current_user.email}, welcome to your urls"%></span></h2>
+  <p class="alert alert-success"><span class= "welcome"><%= "Hello #{@current_user.email}, welcome to your urls"%></span></p>
 <% end %>
 
+  <div class="row-fluid">
+    <div class="hero-unit span8 offset2">
+      <h3>url to shorten:</h3>
+    <form action="/urls" method="POST">
+      <fieldset>
+        <input type="text" name="long_url" /><br/>
+        <% if @url && @url.errors.any? %>
+          <% @url.errors.full_messages.each do |error| %>
+            <p class="alert alert-error"><%= error %></p>
+          <% end %>
+        <% end %>
+        <input type="submit" value="Go &raquo;" class="btn btn-success btn-large" />
+      </fieldset>
+    </div><!-- /.hero-unit -->
+    <div class="span2"></div>
+ </div><!-- /.row-fluid -->
 
-<% if @url && @url.errors.any? %>
-<ul class= "errors">
-  <% @url.errors.full_messages.each do |error| %>
-    <li><%= error %></li>
-  <% end %>
-</ul>
+<div class="row-fluid">
+<table class="table table-hover">
+  <caption class="alert-success">Top URLs</caption>
+  <tr>
+    <th>#</th>
+    <th>long url</th>
+    <th>short url</th>
+    <th>clicks</th>
+    <th></th>
+  </tr>
+<tr>
+<% @urls.each_with_index do |url, i| %>
+  <td><%= i + 1 %></td>
+  <td><%= url.long_url %></td> 
+  <td><a href="/<%= url.short_url%>" target="_blank">/<%= url.short_url %></a></td>
+  <td><%= url.clicks %></li></td>
+   <td><% if @current_user && @current_user.urls.include?(url)%>
+    <i class="icon-star"></i> your url <i class="icon-star"></i> </td>
+    <% end %>
+  </tr>
 <% end %>
+</table>
+</div><!-- /.row-fluid -->
 
-
-<div class="container">
-  <form action="/urls" method="POST">
-    <fieldset>
-      <legend>Url</legend>
-      <label for ="long_url">Insert Url</label>
-      <input type="text" name="long_url" /><br/>
-      <input type="submit" value="Create short url" />
-    </fieldset>
-</div>
-
-<h2>Top URLs</h2>
-<ul>
-
-<% @urls.each do |url| %>
-  <li><%= url.long_url %> = <a href="/<%= url.short_url%>" target="_blank">/<%= url.short_url %></a> <br/> 
-    clicks = <%= url.clicks %>
-<% end %>
-</ul>
 <% if @current_user%>
-  <h2>Your Top URLs</h2>
-  <% @current_user.urls.each do |url| %>
-  <li><%= url.long_url %> = <a href="<%= url.short_url%>" target="_blank">/<%= url.short_url %></a><br/> 
-    clicks = <%= url.clicks %>
+<div class="row-fluid">
+<table class="table table-hover">
+  <caption class="alert-success">Your URLs</caption>
+  <tr>
+    <th>#</th>
+    <th>long url</th>
+    <th>short url</th>
+    <th>clicks</th>
+
+  </tr>
+  <tr>
+  <% @current_user.urls.each_with_index do |url, i| %>
+    <td><%= i + 1 %></td>
+    <td><%= url.long_url %> </td> 
+    <td><a href="<%= url.short_url%>" target="_blank">/<%= url.short_url %></a></td> 
+    <td><%= url.clicks %></td>
 <% end %>
 <% end %>
-
-
+</div><!-- /.row-fluid>
+</div><!-- #main -->
