@@ -1,0 +1,7 @@
+hello <%= current_user.email %>
+
+<h2>Your Top URLs</h2>
+  <% @current_user.urls.each do |url| %>
+  <li><%= url.long_url %> = /<%= url.short_url %> <br/> 
+    clicks = <%= url.clicks %>
+    <% end %>

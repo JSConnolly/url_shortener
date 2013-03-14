@@ -7,16 +7,20 @@ post '/users/login' do
     token = SecureRandom.hex(10)
     session[:token] = token
     user = User.find_by_email(params[:email])
-    user.token_id = token
+    puts token
+    user.token = token
     user.save
-    redirect ('/secret')
+    current_user
+    redirect ('/')
   else
-    redirect ('/login')
+    redirect ('/users/login')
   end
 end
 
 
-delete '/users/logout' do
+delete '/users/signout' do
+  session[:token] = nil 
+  redirect '/'
 end
 
 
