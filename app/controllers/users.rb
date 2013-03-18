@@ -4,11 +4,18 @@ end
 
 post '/users/new' do
   if params[:password] == params[:confirm_password]
-    pass = BCrypt::Password.create(params[:password])
-    User.create(email: params[:email], password_hash: pass)
-    redirect ('/')
+    @user = User.new(email: params[:email])
+    @user.password = params[:password]
+    if @user.valid?
+      give_token(@user)
+      redirect '/'
+    else
+      redirect '/users/new'
+    end
+
   else
-    redirect ('/')
+    #add password mismatch error to session
+    redirect '/users/new'
   end
 end
 

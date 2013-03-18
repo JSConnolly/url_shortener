@@ -10,4 +10,11 @@ helpers do
   def logged_in?
     !current_user.nil?
   end
+
+  def give_token(user)
+    token = SecureRandom.hex(10)
+    session[:token] = token
+    user.token = token
+    user.save
+  end
 end

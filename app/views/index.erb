@@ -7,7 +7,7 @@
   <div class="row-fluid">
     <div class="hero-unit span8 offset2">
       <h3>url to shorten:</h3>
-    <form action="/urls" method="POST">
+      <form action="/urls" method="POST">
       <fieldset>
         <input type="text" name="long_url" /><br/>
         <% if @url && @url.errors.any? %>
@@ -17,6 +17,7 @@
         <% end %>
         <input type="submit" value="Go &raquo;" class="btn btn-success btn-large" />
       </fieldset>
+      </form>
     </div><!-- /.hero-unit -->
     <div class="span2"></div>
  </div><!-- /.row-fluid -->

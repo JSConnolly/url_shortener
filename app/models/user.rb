@@ -1,7 +1,14 @@
 class User < ActiveRecord::Base
+  include BCrypt
   has_many :urls
-  def self.authenticate(email, password)
-    user = User.find_by_email(email)
-    user && (BCrypt::Password.new(user.password_hash) == password)
+
+  def password
+    @password ||= Password.new(password_hash)
   end
+
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_hash = @password
+  end
+
 end
