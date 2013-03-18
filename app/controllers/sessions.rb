@@ -3,14 +3,9 @@ get '/users/login' do
 end
 
 post '/users/login' do
-  if User.authenticate(params[:email], params[:password])
-    token = SecureRandom.hex(10)
-    session[:token] = token
-    user = User.find_by_email(params[:email])
-    puts token
-    user.token = token
-    user.save
-    current_user
+  @user = User.find_by_email( params[:email] )
+  if @user.password == params[:password]
+    give_token(@user)
     redirect ('/')
   else
     redirect ('/users/login')
